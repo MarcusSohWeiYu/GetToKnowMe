@@ -2,10 +2,10 @@ import themes from "daisyui/src/theming/themes";
 
 const config = {
   // REQUIRED
-  appName: "ShipFast",
+  appName: "Do You Know Me?",
   // REQUIRED: a short description of your app for SEO tags (can be overwritten)
   appDescription:
-    "The NextJS boilerplate with all you need to build your SaaS, AI tool, or any other web app.",
+    "Discover your unique personality through an engaging, AI-powered journey. Mindscape Mirror creates a personalized avatar that reflects your true self, combining playful questions with cutting-edge AI to reveal insights about who you really are. It's like looking into a magical mirror that shows your inner character!",
   // REQUIRED (no https://, not trialing slash at the end, just the naked domain)
   domainName: "shipfa.st",
   crisp: {

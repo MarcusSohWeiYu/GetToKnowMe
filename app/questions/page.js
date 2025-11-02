@@ -300,32 +300,54 @@ export default function Home() {
               )}
 
               {/* Navigation Buttons */}
-              <div className="flex justify-between items-center mt-8">
+              <div className="flex justify-between items-center mt-8 px-4 sm:px-0">
                 <button
                   onClick={handleBack}
-                  className={`px-6 py-2 rounded-full transition-colors ${
+                  className={`flex items-center justify-center gap-2 px-6 py-2.5 rounded-full transition-colors text-sm sm:text-base font-medium min-w-[100px] ${
                     currentQuestion > 0
-                      ? 'bg-purple-500 text-white hover:bg-purple-600'
-                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                      ? 'bg-gray-200 hover:bg-gray-300 text-gray-800'
+                      : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                   }`}
                   disabled={currentQuestion === 0}
                 >
-                  ← Back
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    strokeWidth={2} 
+                    stroke="currentColor" 
+                    className="w-4 h-4"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                  </svg>
+                  Back
                 </button>
                 
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-gray-500 hidden sm:block">
                   Question {currentQuestion + 1} of {questions.length}
                 </span>
                 
                 <button
                   onClick={handleForward}
-                  className={`px-6 py-2 rounded-full transition-colors ${
+                  className={`flex items-center justify-center gap-2 px-6 py-2.5 rounded-full transition-colors text-sm sm:text-base font-medium min-w-[100px] ${
                     currentQuestion === questions.length - 1
-                      ? 'bg-green-500 hover:bg-green-600'
-                      : 'bg-purple-500 hover:bg-purple-600'
-                  } text-white`}
+                      ? 'bg-green-500 hover:bg-green-600 text-white'
+                      : 'bg-purple-500 hover:bg-purple-600 text-white'
+                  }`}
                 >
-                  {currentQuestion === questions.length - 1 ? 'See Results ✨' : 'Next →'}
+                  {currentQuestion === questions.length - 1 ? 'See Results' : 'Next'}
+                  {currentQuestion !== questions.length - 1 && (
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      fill="none" 
+                      viewBox="0 0 24 24" 
+                      strokeWidth={2} 
+                      stroke="currentColor" 
+                      className="w-4 h-4"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    </svg>
+                  )}
                 </button>
               </div>
             </div>

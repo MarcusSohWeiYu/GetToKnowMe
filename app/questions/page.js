@@ -97,6 +97,7 @@ const questions = [
 ];
 
 export default function Home() {
+  const [quizStarted, setQuizStarted] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState({});
   const [showResults, setShowResults] = useState(false);
@@ -261,6 +262,7 @@ export default function Home() {
   };
 
   const resetQuiz = () => {
+    setQuizStarted(false);
     setCurrentQuestion(0);
     setAnswers({});
     setShowResults(false);
@@ -269,9 +271,11 @@ export default function Home() {
     setPersonalityLoaded(false);
     setGeneratedAvatar("");
     setPersonalityData({
-      name: "",
-      description: "",
-      traits: []
+      PersonalityTraitDescription: "",
+      CareerPath: "",
+      Strengths: "",
+      Weaknesses: "",
+      traits: ["", "", ""]
     });
   };
 
@@ -301,7 +305,53 @@ export default function Home() {
   return (
     <div className={`${geistSans.className} ${geistMono.className} min-h-screen bg-gradient-to-b from-purple-100 to-pink-100 dark:from-purple-900 dark:to-pink-900 p-8`}>
       <main className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mt-10">
-        {!showResults ? (
+        
+        {/* Start Page */}
+        {!quizStarted && !showResults ? (
+          <div className="text-center space-y-6">
+            <h1 className="text-4xl font-bold mb-4">MZ Personality Test✨</h1>
+            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
+              Discover your unique personality through an engaging quiz!
+            </p>
+            
+            <div className="bg-purple-50 dark:bg-purple-900 p-6 rounded-xl mb-8">
+              <h2 className="text-2xl font-semibold mb-4 text-purple-800 dark:text-purple-200">
+                What You&apos;ll Get:
+              </h2>
+              <ul className="text-left space-y-3 text-lg text-gray-700 dark:text-gray-200 max-w-md mx-auto">
+                <li className="flex items-start gap-3">
+                  <span className="text-2xl">🎭</span>
+                  <span>Your unique personality traits</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-2xl">💼</span>
+                  <span>Personalized career paths</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-2xl">✨</span>
+                  <span>Your strengths & areas to grow</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-2xl">🎨</span>
+                  <span>A custom AI-generated avatar!</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="space-y-4">
+              <p className="text-gray-600 dark:text-gray-400">
+                📝 {questions.length} fun questions • ⏱️ Takes ~3 minutes
+              </p>
+              
+              <button
+                onClick={() => setQuizStarted(true)}
+                className="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xl font-bold rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 shadow-lg"
+              >
+                Start Quiz 🚀
+              </button>
+            </div>
+          </div>
+        ) : !showResults ? (
           <div className="space-y-6">
             <h1 className="text-3xl font-bold text-center mb-8">MZ Personality Test✨</h1>
             <div className="mb-8">

@@ -7,22 +7,82 @@ import { useRef, useState } from "react";
 
 const faqList = [
   {
-    question: "What do I get exactly?",
-    answer: <div className="space-y-2 leading-relaxed">Loreum Ipseum</div>,
+    question: "Is it really free? What's the catch?",
+    answer: (
+      <div className="space-y-2 leading-relaxed">
+        <p>
+          Yes, 100% free! Create unlimited surveys with unlimited questions and unlimited responses. No credit card required, no hidden fees, no &ldquo;free trial&rdquo; that converts to paid.
+        </p>
+        <p>
+          We keep it free by showing small ads on survey pages. You don&apos;t pay anything—we monetize through advertising so you can focus on getting responses.
+        </p>
+      </div>
+    ),
   },
   {
-    question: "Can I get a refund?",
+    question: "How does the AI avatar generation work?",
+    answer: (
+      <div className="space-y-2 leading-relaxed">
+        <p>
+          When someone completes your survey, our AI analyzes their responses and generates a unique character avatar that matches their personality profile. It uses DALL-E 3 for stunning, creative images.
+        </p>
+        <p>
+          Each avatar is completely unique and personalized. Users get excited to finish the survey because they want to see &ldquo;their character&rdquo;—this boosts completion rates by 70%+.
+        </p>
+      </div>
+    ),
+  },
+  {
+    question: "Can the AI really write my survey questions?",
     answer: (
       <p>
-        Yes! You can request a refund within 7 days of your purchase. Reach out
-        by email.
+        Absolutely! Just tell us what you want to learn (e.g., &ldquo;customer satisfaction for my coffee shop&rdquo; or &ldquo;personality quiz about travel styles&rdquo;), and our AI will generate professional, relevant questions in seconds. You can edit them or use them as-is. It&apos;s like having a survey expert on demand.
       </p>
     ),
   },
   {
-    question: "I have another question",
+    question: "How does the viral sharing work?",
     answer: (
-      <div className="space-y-2 leading-relaxed">Cool, contact us by email</div>
+      <p>
+        After completing your survey, respondents get a &ldquo;Share Your Avatar&rdquo; button. One click lets them post their AI character to social media with a link back to your survey. Their friends see the cool avatar, get curious, and take your survey too. It&apos;s exponential growth on autopilot—no ads needed.
+      </p>
+    ),
+  },
+  {
+    question: "What kind of insights will I get?",
+    answer: (
+      <div className="space-y-2 leading-relaxed">
+        <p>
+          Our AI automatically analyzes all responses and generates insights like: most common answers, trends over time, audience segments, drop-off points, and key takeaways.
+        </p>
+        <p>
+          No need to export to Excel or manually crunch numbers. You get smart summaries, visualizations, and actionable recommendations instantly.
+        </p>
+      </div>
+    ),
+  },
+  {
+    question: "What types of surveys can I create?",
+    answer: (
+      <p>
+        Anything! Personality quizzes, customer feedback forms, market research, employee engagement surveys, event registrations, trivia quizzes, &ldquo;Which character are you?&rdquo; quizzes, product research—if it needs questions and answers, you can build it here.
+      </p>
+    ),
+  },
+  {
+    question: "Do I need any technical skills?",
+    answer: (
+      <p>
+        Nope! Our builder is designed for anyone. Just type your questions (or let AI generate them), choose answer types, and publish. No coding, no design skills, no complicated setup. If you can use Google Forms, you can use this—but way more powerful and engaging.
+      </p>
+    ),
+  },
+  {
+    question: "Can I customize how the survey looks?",
+    answer: (
+      <p>
+        Yes! You can customize colors, add your logo, write custom result descriptions, and personalize the AI avatar prompts. Make it match your brand while keeping the core engagement features that drive completions.
+      </p>
     ),
   },
 ];

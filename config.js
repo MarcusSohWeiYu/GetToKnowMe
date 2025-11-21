@@ -2,12 +2,12 @@ import themes from "daisyui/src/theming/themes";
 
 const config = {
   // REQUIRED
-  appName: "Do You Know Me?",
+  appName: "VibeCheck",
   // REQUIRED: a short description of your app for SEO tags (can be overwritten)
   appDescription:
     "Discover your unique personality through an engaging, AI-powered journey. Mindscape Mirror creates a personalized avatar that reflects your true self, combining playful questions with cutting-edge AI to reveal insights about who you really are. It's like looking into a magical mirror that shows your inner character!",
   // REQUIRED (no https://, not trialing slash at the end, just the naked domain)
-  domainName: "shipfa.st",
+  domainName: "getquizzy.online",
   crisp: {
     // Crisp website ID. IF YOU DON'T USE CRISP: just remove this => Then add a support email in this config file (resend.supportEmail) otherwise customer support won't work.
     id: "",

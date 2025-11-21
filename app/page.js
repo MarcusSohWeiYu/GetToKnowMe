@@ -22,10 +22,8 @@ export default function Home() {
             <Hero />
             <Problem />
             <FeaturesAccordion />
-            <Pricing />
-            <FAQ />
-            <TestimonialsGrid />
             <WithWithout />
+            <FAQ />
             <CTA />
           </div>
         </div>

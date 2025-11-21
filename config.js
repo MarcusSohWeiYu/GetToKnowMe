@@ -2,7 +2,7 @@ import themes from "daisyui/src/theming/themes";
 
 const config = {
   // REQUIRED
-  appName: "VibeCheck",
+  appName: "GetQuizzy",
   // REQUIRED: a short description of your app for SEO tags (can be overwritten)
   appDescription:
     "Discover your unique personality through an engaging, AI-powered journey. Mindscape Mirror creates a personalized avatar that reflects your true self, combining playful questions with cutting-edge AI to reveal insights about who you really are. It's like looking into a magical mirror that shows your inner character!",
@@ -72,11 +72,11 @@ const config = {
   },
   resend: {
     // REQUIRED — Email 'From' field to be used when sending magic login links
-    fromNoReply: `ShipFast <noreply@resend.shipfa.st>`,
+    fromNoReply: `GetQuizzy <noreply@resend.getquizzy.online>`,
     // REQUIRED — Email 'From' field to be used when sending other emails, like abandoned carts, updates etc..
-    fromAdmin: `Marc at ShipFast <marc@resend.shipfa.st>`,
+    fromAdmin: `Marcus at GetQuizzy <marc@resend.getquizzy.online>`,
     // Email shown to customer if need support. Leave empty if not needed => if empty, set up Crisp above, otherwise you won't be able to offer customer support."
-    supportEmail: "marc.louvion@gmail.com",
+    supportEmail: "mswy07@gmail.com",
   },
   colors: {
     // REQUIRED — The DaisyUI theme to use (added to the main layout.js). Leave blank for default (light & dark mode). If you any other theme than light/dark, you need to add it in config.tailwind.js in daisyui.themes.

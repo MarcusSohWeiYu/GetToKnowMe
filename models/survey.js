@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 import toJSON from "./plugins/toJSON";
 
 // Survey Schema
+
+//Updated schema
 const surveySchema = mongoose.Schema(
   {
     name: {

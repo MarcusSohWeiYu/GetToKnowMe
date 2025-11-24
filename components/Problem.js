@@ -1,7 +1,11 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+
 const Arrow = ({ extraStyle }) => {
   return (
     <svg
-      className={`shrink-0 w-12 fill-neutral-content opacity-70 ${extraStyle}`}
+      className={`shrink-0 w-12 fill-neutral-content opacity-70 transition-all duration-500 ${extraStyle}`}
       viewBox="0 0 138 138"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -21,11 +25,16 @@ const Arrow = ({ extraStyle }) => {
     </svg>
   );
 };
+
 const Step = ({ emoji, text }) => {
   return (
-    <div className="w-full md:w-48 flex flex-col gap-2 items-center justify-center">
-      <span className="text-4xl">{emoji}</span>
-      <h3 className="font-bold">{text}</h3>
+    <div className="w-full md:w-48 flex flex-col gap-2 items-center justify-center group cursor-default">
+      <span className="text-5xl md:text-6xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
+        {emoji}
+      </span>
+      <h3 className="font-bold text-base md:text-lg transition-colors duration-300 group-hover:text-primary">
+        {text}
+      </h3>
     </div>
   );
 };
@@ -40,26 +49,61 @@ const Step = ({ emoji, text }) => {
 // - Problem Agitation: "People abandon boring surveys, leaving you with incomplete data and wasted effort."
 // - Features: "AI character reveals, drag-and-drop builder, viral sharing"
 const Problem = () => {
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.querySelectorAll('.scroll-animate').forEach((el, index) => {
+              setTimeout(() => {
+                el.classList.add('animate-fadeInUp');
+              }, index * 150);
+            });
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="bg-neutral text-neutral-content">
-      <div className="max-w-7xl mx-auto px-8 py-16 md:py-32 text-center">
-        <h2 className="max-w-3xl mx-auto font-extrabold text-4xl md:text-5xl tracking-tight mb-6 md:mb-8">
-          85% of people abandon surveys before finishing
+    <section className="bg-neutral text-neutral-content relative overflow-hidden">
+      <div ref={sectionRef} className="relative max-w-7xl mx-auto px-8 py-16 md:py-32 text-center">
+        <h2 className="scroll-animate max-w-3xl mx-auto font-extrabold text-4xl md:text-5xl lg:text-6xl tracking-tight mb-6 md:mb-8 leading-tight">
+          <span className="inline-block hover:scale-105 transition-transform duration-200">85%</span> of people abandon surveys before finishing
         </h2>
-        <p className="max-w-xl mx-auto text-lg opacity-90 leading-relaxed mb-12 md:mb-20">
+        <p className="scroll-animate max-w-xl mx-auto text-lg md:text-xl opacity-90 leading-relaxed mb-12 md:mb-20">
           Without a compelling reason to finish, respondents drop off halfway through, leaving you with incomplete data and wasted effort.
         </p>
 
-        <div className="flex flex-col md:flex-row justify-center items-center md:items-start gap-6">
-          <Step emoji="📝" text="Create a survey" />
+        <div className="flex flex-col md:flex-row justify-center items-center md:items-start gap-6 md:gap-8">
+          <div className="scroll-animate stagger-1">
+            <Step emoji="📝" text="Create a survey" />
+          </div>
 
-          <Arrow extraStyle="max-md:-scale-x-100 md:-rotate-90" />
+          <div className="scroll-animate stagger-2">
+            <Arrow extraStyle="max-md:-scale-x-100 md:-rotate-90 hover:scale-110 transition-transform duration-300" />
+          </div>
 
-          <Step emoji="😮‍💨" text="People get bored" />
+          <div className="scroll-animate stagger-3">
+            <Step emoji="😮‍💨" text="People get bored" />
+          </div>
 
-          <Arrow extraStyle="md:-scale-x-100 md:-rotate-90" />
+          <div className="scroll-animate stagger-4">
+            <Arrow extraStyle="md:-scale-x-100 md:-rotate-90 hover:scale-110 transition-transform duration-300" />
+          </div>
 
-          <Step emoji="📉" text="Terrible response rates" />
+          <div className="scroll-animate stagger-5">
+            <Step emoji="📉" text="Terrible response rates" />
+          </div>
         </div>
       </div>
     </section>

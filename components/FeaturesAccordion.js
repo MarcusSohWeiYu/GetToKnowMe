@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 
 // The features array is a list of features that will be displayed in the accordion.
@@ -139,25 +139,33 @@ const Item = ({ feature, isOpen, setFeatureSelected }) => {
   const { title, description, svg } = feature;
 
   return (
-    <li>
+    <li className="border-b border-base-content/10 last:border-0">
       <button
-        className="relative flex gap-2 items-center w-full py-5 text-base font-medium text-left md:text-lg"
+        className="relative flex gap-3 items-center w-full py-5 text-base font-medium text-left md:text-lg group hover:bg-base-200/50 px-4 rounded-lg transition-all duration-200"
         onClick={(e) => {
           e.preventDefault();
           setFeatureSelected();
         }}
         aria-expanded={isOpen}
       >
-        <span className={`duration-100 ${isOpen ? "text-primary" : ""}`}>
+        <span className={`duration-300 transform transition-all ${isOpen ? "text-primary scale-110" : "group-hover:scale-110"}`}>
           {svg}
         </span>
         <span
-          className={`flex-1 text-base-content ${
-            isOpen ? "text-primary font-semibold" : ""
+          className={`flex-1 text-base-content transition-all duration-200 ${
+            isOpen ? "text-primary font-semibold" : "group-hover:text-primary/80"
           }`}
         >
           <h3 className="inline">{title}</h3>
         </span>
+        <svg 
+          className={`w-5 h-5 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
       </button>
 
       <div
@@ -169,7 +177,7 @@ const Item = ({ feature, isOpen, setFeatureSelected }) => {
             : { maxHeight: 0, opacity: 0 }
         }
       >
-        <div className="pb-5 leading-relaxed">{description}</div>
+        <div className="pb-5 px-4 leading-relaxed text-base md:text-lg">{description}</div>
       </div>
     </li>
   );
@@ -188,7 +196,7 @@ const Media = ({ feature }) => {
   if (type === "video") {
     return (
       <video
-        className={style}
+        className={`${style} shadow-2xl hover-lift`}
         autoPlay
         muted
         loop
@@ -202,13 +210,16 @@ const Media = ({ feature }) => {
     );
   } else if (type === "image") {
     return (
-      <Image
-        src={path}
-        alt={alt}
-        className={`${style} object-cover object-center`}
-        width={size.width}
-        height={size.height}
-      />
+      <div className="relative group">
+        <Image
+          src={path}
+          alt={alt}
+          className={`${style} object-cover object-center shadow-2xl hover-lift transition-all duration-300`}
+          width={size.width}
+          height={size.height}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+      </div>
     );
   } else {
     return <div className={`${style} !border-none`}></div>;
@@ -219,22 +230,53 @@ const Media = ({ feature }) => {
 // By default, the first feature is selected. When a feature is clicked, the others are closed.
 const FeaturesAccordion = () => {
   const [featureSelected, setFeatureSelected] = useState(0);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.querySelectorAll('.scroll-animate').forEach((el, index) => {
+              setTimeout(() => {
+                el.classList.add('animate-fadeInUp');
+              }, index * 100);
+            });
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
-      className="py-24 md:py-32 space-y-24 md:space-y-32 max-w-7xl mx-auto bg-base-100 "
+      ref={sectionRef}
+      className="py-24 md:py-32 space-y-24 md:space-y-32 max-w-7xl mx-auto bg-base-100 relative"
       id="features"
     >
-      <div className="px-8">
-        <h2 className="font-extrabold text-4xl lg:text-6xl tracking-tight mb-12 md:mb-24">
-          Everything you need to create
-          <span className="bg-neutral text-neutral-content px-2 md:px-4 ml-1 md:ml-1.5 leading-relaxed whitespace-nowrap">
-            viral surveys
+      {/* Decorative gradient orb */}
+      <div className="absolute top-1/4 right-0 w-96 h-96 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-full filter blur-3xl opacity-30 pointer-events-none"></div>
+      
+      <div className="px-8 relative z-10">
+        <h2 className="scroll-animate font-extrabold text-4xl lg:text-6xl tracking-tight mb-4 md:mb-6 leading-tight">
+          Everything you need to create<br />
+          <span className="bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text animate-pulse">
+            Engaging Surveys
           </span>
         </h2>
-        <div className=" flex flex-col md:flex-row gap-12 md:gap-24">
+        <p className="scroll-animate text-lg md:text-xl opacity-70 mb-12 md:mb-24 max-w-2xl">
+          Powerful features designed to boost engagement and collect better data
+        </p>
+        <div className="flex flex-col md:flex-row gap-12 md:gap-24">
           <div className="grid grid-cols-1 items-stretch gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-20">
-            <ul className="w-full">
+            <ul className="w-full space-y-2 scroll-animate">
               {features.map((feature, i) => (
                 <Item
                   key={feature.title}
@@ -246,7 +288,9 @@ const FeaturesAccordion = () => {
               ))}
             </ul>
 
-            <Media feature={features[featureSelected]} key={featureSelected} />
+            <div className="scroll-animate">
+              <Media feature={features[featureSelected]} key={featureSelected} />
+            </div>
           </div>
         </div>
       </div>

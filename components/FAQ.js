@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 // <FAQ> component is a lsit of <Item> component
 // Just import the FAQ & add your FAQ content to the const faqList
@@ -92,9 +92,9 @@ const Item = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <li>
+    <li className="border-t border-base-content/10 hover:bg-base-100/50 transition-colors duration-200 rounded-lg">
       <button
-        className="relative flex gap-2 items-center w-full py-5 text-base font-semibold text-left border-t md:text-lg border-base-content/10"
+        className="relative flex gap-2 items-center w-full py-5 px-4 text-base font-semibold text-left md:text-lg"
         onClick={(e) => {
           e.preventDefault();
           setIsOpen(!isOpen);
@@ -102,12 +102,12 @@ const Item = ({ item }) => {
         aria-expanded={isOpen}
       >
         <span
-          className={`flex-1 text-base-content ${isOpen ? "text-primary" : ""}`}
+          className={`flex-1 text-base-content transition-colors duration-200 ${isOpen ? "text-primary" : ""}`}
         >
           {item?.question}
         </span>
         <svg
-          className={`flex-shrink-0 w-4 h-4 ml-auto fill-current`}
+          className={`flex-shrink-0 w-5 h-5 ml-auto fill-current transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
           viewBox="0 0 16 16"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -141,24 +141,52 @@ const Item = ({ item }) => {
             : { maxHeight: 0, opacity: 0 }
         }
       >
-        <div className="pb-5 leading-relaxed">{item?.answer}</div>
+        <div className="pb-5 px-4 leading-relaxed">{item?.answer}</div>
       </div>
     </li>
   );
 };
 
 const FAQ = () => {
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.querySelectorAll('.scroll-animate').forEach((el, index) => {
+              setTimeout(() => {
+                el.classList.add('animate-fadeInUp');
+              }, index * 50);
+            });
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="bg-base-200" id="faq">
-      <div className="py-24 px-8 max-w-7xl mx-auto flex flex-col md:flex-row gap-12">
-        <div className="flex flex-col text-left basis-1/2">
-          <p className="inline-block font-semibold text-primary mb-4">FAQ</p>
-          <p className="sm:text-4xl text-3xl font-extrabold text-base-content">
+    <section className="bg-base-200 rounded-3xl" id="faq">
+      <div ref={sectionRef} className="py-24 px-8 max-w-7xl mx-auto flex flex-col md:flex-row gap-12">
+        <div className="flex flex-col text-left basis-1/2 scroll-animate">
+          <p className="inline-block font-semibold text-primary mb-4 text-lg">FAQ</p>
+          <p className="sm:text-5xl text-4xl font-extrabold text-base-content mb-6">
             Frequently Asked Questions
+          </p>
+          <p className="text-lg opacity-70">
+            Everything you need to know about creating engaging surveys with AI character rewards.
           </p>
         </div>
 
-        <ul className="basis-1/2">
+        <ul className="basis-1/2 space-y-2 scroll-animate">
           {faqList.map((item, i) => (
             <Item key={i} item={item} />
           ))}

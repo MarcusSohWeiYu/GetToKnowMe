@@ -12,15 +12,21 @@ import WithWithout from '@/components/WithWithout';
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col scroll-smooth">
       <Suspense>
         <Header />
       </Suspense>
-      <main className="flex-grow">
+      <main className="flex-grow overflow-x-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="space-y-16 py-8 sm:py-12">
+          <div className="space-y-20 sm:space-y-24 md:space-y-32 py-8 sm:py-12">
             <Hero />
-            <Problem />
+          </div>
+        </div>
+        <div className="space-y-20 sm:space-y-24 md:space-y-32">
+          <Problem />
+        </div>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="space-y-20 sm:space-y-24 md:space-y-32 pb-20 md:pb-32">
             <FeaturesAccordion />
             <WithWithout />
             <FAQ />

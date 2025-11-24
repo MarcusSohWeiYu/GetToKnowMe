@@ -13,7 +13,7 @@ import User from "@/models/User";
 
 import Survey from "@/models/Survey";
 
-//Create surverys
+//Create survery
 export async function POST(req) {
   try {
     //Getting the body from the request
@@ -59,4 +59,45 @@ export async function POST(req) {
       { status: 500 }
     );
   }
+}
+
+//Delete survery
+export async function DELETE(req) {
+    try {
+        //Accessing the URL
+        const { searchParams } = req.nextUrl;
+        const surveyId = searchParams.get("id");
+
+        //Checking if survey ID was passed
+        if (!surveyId){
+            return NextResponse.json({ error: "Survey ID is required" }, { status: 400 });
+        }
+
+        //Checking if the user is authorised to delete the survey
+        const session = await auth();
+        if (!session?.user?.email) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
+        //Deleting the board id from board db
+        const user = await User.findById(session.user?.id);
+
+        //Deleting the board from the db
+        await Survey.deleteOne({
+            _id: surveyId,
+            userId: session?.user?._id
+        })
+
+        user.surveys = user.surveys.filter((id) => {
+            return id.toString() !== surveyId;
+        })
+
+        await user.save();
+
+        return NextResponse.json({ message: "Survey deleted successfully" }, { status: 200 });
+
+    } catch (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
 }

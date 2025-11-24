@@ -46,11 +46,9 @@ const FormNewSurvey = () => {
       setStatus("");
       toast.success("Survey created successfully!");
 
-      //3. Refresh the page to show the new survey in the list
-      router.refresh();
-
-      //Redirect back to dashboard
+      //3. Redirect back to dashboard and force refresh
       router.push("/dashboard");
+      router.refresh();
     } catch (e) {
       const errorMessage =
         e.response?.data?.error || e.message || "Something went wrong";

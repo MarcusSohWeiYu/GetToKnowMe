@@ -25,7 +25,7 @@ const ButtonSignin = ({ text = "Get started", extraStyle }) => {
     return (
       <Link
         href={config.auth.callbackUrl}
-        className={`bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 text-white font-bold px-8 py-3 rounded-2xl transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-orange-500/50 flex items-center gap-2 ${extraStyle ? extraStyle : ""}`}
+        className={`bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold px-8 py-3 rounded-2xl transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-purple-500/50 flex items-center gap-2 ${extraStyle ? extraStyle : ""}`}
       >
         {session.user?.image ? (
           <img
@@ -48,7 +48,7 @@ const ButtonSignin = ({ text = "Get started", extraStyle }) => {
 
   return (
     <button
-      className={`bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 text-white font-bold px-8 py-3 rounded-2xl transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-orange-500/50 ${extraStyle ? extraStyle : ""}`}
+      className={`bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold px-8 py-3 rounded-2xl transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-purple-500/50 ${extraStyle ? extraStyle : ""}`}
       onClick={handleClick}
     >
       {text}

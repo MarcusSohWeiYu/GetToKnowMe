@@ -1,12 +1,16 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import TestimonialsAvatars from "./TestimonialsAvatars";
 import config from "@/config";
 
 const Hero = () => {
   const sectionRef = useRef(null);
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -46,8 +50,11 @@ const Hero = () => {
           Turn surveys into experiences people want to complete. 
           End every quiz with a custom AI character reveal.
         </p>
-        <button className="scroll-animate bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-lg px-8 py-4 rounded-2xl hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-purple-500/50 flex items-center gap-3 group">
-          Create Your First Quiz
+        <button 
+          onClick={() => router.push(status === "authenticated" ? config.auth.callbackUrl : "/signin")}
+          className="scroll-animate bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-lg px-8 py-4 rounded-2xl hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-purple-500/50 flex items-center gap-3 group"
+        >
+          {status === "authenticated" ? "Go to Dashboard" : "Create Your First Quiz"}
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-6 h-6 group-hover:translate-x-1 transition-transform duration-200">
             <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
           </svg>

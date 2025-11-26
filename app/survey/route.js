@@ -12,6 +12,7 @@ import connectMongo from "@/libs/db/mongoose";
 import User from "@/models/User";
 
 import Survey from "@/models/Survey";
+import Question from "@/models/Question";
 
 //Create survery
 export async function POST(req) {
@@ -45,13 +46,23 @@ export async function POST(req) {
       userId: user._id,
       name: body.name,
       description: body.description,
-      status: "active",
+      status: body.status || "active",
       aiInstructions: body.aiInstructions,
     });
 
+    // Create questions if provided
+    if (body.questions && Array.isArray(body.questions) && body.questions.length > 0) {
+      const questionsWithSurveyId = body.questions.map(q => ({
+        ...q,
+        surveyId: survey._id
+      }));
+      
+      await Question.insertMany(questionsWithSurveyId);
+    }
+
     user.surveys.push(survey._id);
     await user.save();
-    return NextResponse.json({ survey }, { status: 201 });
+    return NextResponse.json({ survey, surveyId: survey._id }, { status: 201 });
   } catch (error) {
     console.error("Survey Creation Error:", error);
     return NextResponse.json(

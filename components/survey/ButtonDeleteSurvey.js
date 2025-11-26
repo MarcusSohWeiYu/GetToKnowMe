@@ -25,14 +25,14 @@ const ButtonDeleteSurvey = ({ surveyId }) => {
   };
 
   return (
-    <a className="text-error" onClick={handleDelete}>
+    <a className="text-red-400 hover:text-red-300 rounded-xl hover:bg-gray-700 flex items-center gap-2 cursor-pointer" onClick={handleDelete}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth={1.5}
         stroke="currentColor"
-        className="w-4 h-4"
+        className="w-5 h-5"
       >
         <path
           strokeLinecap="round"

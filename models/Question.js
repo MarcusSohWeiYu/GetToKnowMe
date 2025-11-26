@@ -11,10 +11,8 @@ const questionSchema = mongoose.Schema({
     required: true,
     enum: [
       "multiple-choice",
-      "checkboxes",
-      "text-short",
-      "text-long",
-      "dropdown",
+      "text",
+      "rating"
     ],
   },
   // Options for multiple choice, checkboxes, dropdown
@@ -38,3 +36,5 @@ const questionSchema = mongoose.Schema({
     ref: "Survey",
   },
 });
+
+export default mongoose.models.Question || mongoose.model("Question", questionSchema);
